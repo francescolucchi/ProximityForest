@@ -75,7 +75,8 @@ public class AppContext {
 	private static String datasetName; 
 	
 	static {
-		rand = new Random();
+		rand_seed = 42;
+		rand = new Random(rand_seed);
 	}
 
 	public static Random getRand() {
