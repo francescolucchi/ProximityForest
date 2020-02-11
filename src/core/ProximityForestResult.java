@@ -176,12 +176,10 @@ public class ProximityForestResult {
 	}
 	
 	public String exportJSON(String datasetName, int experiment_id) throws Exception {
-		String file = "";
-		String timestamp = LocalDateTime.now()
-			       .format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss_SSS"));		
+		String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss_SSS"));
 		
-		file = AppContext.output_dir + File.separator + forest_id + timestamp;
-		
+		String file = AppContext.output_dir + File.separator + forest_id + timestamp + ".json";
+
 		File fileObj = new File(file);
 		
 		fileObj.getParentFile().mkdirs();
