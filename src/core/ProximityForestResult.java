@@ -40,9 +40,10 @@ public class ProximityForestResult {
 	public long endTimeTest = 0;
 	public long elapsedTimeTest = 0;	
 			
-	public int errors = 0, correct = 0;	
-	public double accuracy = 0, error_rate = 0;	
-	
+	public int errors = 0, correct = 0;
+	public int tp = 0, tn = 0, fp = 0, fn = 0;
+	public double accuracy = 0, error_rate = 0;
+	public double precision = 0, recall = 0, f1score = 0, mcc = 0;
 	
 	//FILLED BY STAT COLLECTOR CLASS
 
@@ -154,7 +155,11 @@ public class ProximityForestResult {
 	        
 	        System.out.format("%sCorrect(TP+TN): %d vs Incorrect(FP+FN): %d\n",prefix,  correct, errors);
 	        System.out.println(prefix+"Accuracy: " + accuracy);
-	        System.out.println(prefix+"Error Rate: "+ error_rate);			
+	        System.out.println(prefix+"Error Rate: "+ error_rate);
+			System.out.println(prefix+"Precision: "+ precision);
+			System.out.println(prefix+"Recall: "+ recall);
+			System.out.println(prefix+"F1 Score: "+ f1score);
+			System.out.println(prefix+"MCC: "+ mcc);
 		}
 
         
@@ -168,6 +173,10 @@ public class ProximityForestResult {
         String pre = "REPEAT:" + (experiment_id+1) +" ,";
 		System.out.print(pre + datasetName);        
 		System.out.print(", " + accuracy);
+		System.out.print(", " + precision);
+		System.out.print(", " + recall);
+		System.out.print(", " + f1score);
+		System.out.print(", " + mcc);
 		System.out.print(", " + elapsedTimeTrain /1e6);
 		System.out.print(", " + elapsedTimeTest /1e6);
 		System.out.print(", " + mean_depth_per_tree);

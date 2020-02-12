@@ -96,8 +96,22 @@ public class ProximityForest implements Serializable{
 			predicted_class = predict(test_data.get_series(i));
 			if (actual_class != predicted_class){
 				result.errors++;
+				if (num_votes.length == 2) {
+					if (actual_class == 0) {
+						result.fp++;
+					} else {
+						result.fn++;
+					}
+				}
 			}else{
 				result.correct++;
+				if (num_votes.length == 2) {
+					if (actual_class == 0) {
+						result.tn++;
+					} else {
+						result.tp++;
+					}
+				}
 			}
 
 			if (AppContext.verbosity > 0) {
@@ -118,6 +132,10 @@ public class ProximityForest implements Serializable{
 		assert test_data.size() == result.errors + result.correct;
 		result.accuracy  = ((double) result.correct) / test_data.size();
 		result.error_rate = 1 - result.accuracy;
+		result.precision = 1.0 * result.tp / (result.tp + result.fp);
+		result.recall = 1.0 * result.tp / (result.tp + result.fn);
+		result.f1score = 2.0 * (result.recall * result.precision) / (result.recall + result.precision);
+		result.mcc = (result.tp * result.tn - result.fp * result.fn) / Math.sqrt(1.0 * (result.tp + result.fp) * (result.tp + result.fn) * (result.tn + result.fp) * (result.tn + result.fn));
 
         return result;
 	}
